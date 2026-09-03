@@ -1,492 +1,189 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>خريطة طريق تحليل البيانات - حسين</title>
-<link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=3">
-<link rel="shortcut icon" href="favicon.png?v=3">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Roadmap — Data Analyst بالعربي</title>
 <style>
-  :root{
-    --ink:#10141A;
-    --surface:#181F28;
-    --surface-2:#1F2833;
-    --line:#2A3340;
-    --text:#EEF1F5;
-    --text-2:#8B96A5;
-    --text-3:#5C6572;
-    --teal:#33D6A8;
-    --teal-dim:#1B4E42;
-    --amber:#F2A93B;
-    --amber-dim:#4A3A1A;
-    --coral:#FF6E5A;
-    --coral-dim:#4A251F;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--ink);
-    color:var(--text);
-    font-family:'Tajawal',sans-serif;
-    line-height:1.7;
-  }
-  .mono{font-family:'IBM Plex Mono',monospace;}
-
-  /* ---------- Header ---------- */
-  .hero{
-    padding:56px 24px 40px;
-    max-width:850px;
-    margin:0 auto;
-  }
-  .hero-main-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    margin-bottom: 24px;
-  }
-  .hero-text {
-    flex: 1;
-    text-align: right;
-  }
-  .hero-logo {
-    flex: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .hero-img {
-    width: 130px;
-    height: 130px;
-    object-fit: contain;
-    border-radius: 12px;
-    filter: drop-shadow(0 0 15px rgba(51, 214, 168, 0.25));
-  }
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    letter-spacing:2px;
-    color:var(--teal);
-    text-transform:uppercase;
-  }
-  .hero h1{
-    font-size:32px;
-    font-weight:800;
-    margin:8px 0;
-  }
-  .hero p{
-    color:var(--text-2);
-    font-size:15px;
-    margin:0;
-  }
-  .progress-wrap{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:16px 20px;
-  }
-  .progress-track{
-    flex:1;
-    height:8px;
-    background:var(--surface-2);
-    border-radius:999px;
-    overflow:hidden;
-  }
-  .progress-fill{
-    height:100%;
-    width:0%;
-    background:linear-gradient(90deg,var(--teal),#5EEAC4);
-    border-radius:999px;
-    transition:width .5s ease;
-  }
-  .progress-label{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:13px;
-    color:var(--text-2);
-    white-space:nowrap;
-  }
-
-  /* ---------- Rail / stations ---------- */
-  .rail-container{
-    max-width:760px;
-    margin:0 auto;
-    padding:20px 24px 80px;
-    position:relative;
-  }
-  .rail-container::before{
-    content:'';
-    position:absolute;
-    top:28px;
-    bottom:60px;
-    right:47px;
-    width:2px;
-    background:var(--line);
-  }
-  .station{
-    position:relative;
-    display:flex;
-    gap:20px;
-    margin-bottom:18px;
-  }
-  .station-marker{
-    flex:none;
-    width:56px;
-    height:56px;
-    border-radius:50%;
-    background:var(--surface);
-    border:2px solid var(--line);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:'IBM Plex Mono',monospace;
-    font-weight:600;
-    font-size:18px;
-    color:var(--text-3);
-    z-index:1;
-    transition:all .3s ease;
-  }
-  .station-marker.done{
-    background:var(--teal-dim);
-    border-color:var(--teal);
-    color:var(--teal);
-  }
-  .station-marker.progress{
-    background:var(--amber-dim);
-    border-color:var(--amber);
-    color:var(--amber);
-  }
-  .station-card{
-    flex:1;
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:20px 22px;
-  }
-  .station-card.outcome{
-    border-color:var(--coral);
-  }
-  .station-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:12px;
-    flex-wrap:wrap;
-  }
-  .station-title{
-    font-size:19px;
-    font-weight:700;
-    margin:0 0 4px;
-  }
-  .station-sub{
-    color:var(--text-2);
-    font-size:13.5px;
-    margin:0;
-  }
-  .station-pct{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    color:var(--text-3);
-    background:var(--surface-2);
-    padding:4px 10px;
-    border-radius:999px;
-    white-space:nowrap;
-  }
-  .courses{
-    margin-top:16px;
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-  }
-  .course-link{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    background:var(--surface-2);
-    border:1px solid var(--line);
-    border-radius:10px;
-    padding:10px 14px;
-    text-decoration:none;
-    color:var(--text);
-    font-size:14px;
-    transition:border-color .2s;
-  }
-  .course-link:hover{border-color:var(--teal);}
-  .course-link .yt{
-    flex:none;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:10px;
-    color:var(--coral);
-    border:1px solid var(--coral-dim);
-    background:var(--coral-dim);
-    padding:2px 6px;
-    border-radius:5px;
-  }
-  .course-meta{color:var(--text-3);font-size:12.5px;}
-
-  .tasks{
-    margin-top:16px;
-    display:flex;
-    flex-direction:column;
-    gap:2px;
-  }
-  .task{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:8px 4px;
-    cursor:pointer;
-    border-radius:8px;
-  }
-  .task:hover{background:var(--surface-2);}
-  .task input{
-    width:18px;height:18px;
-    accent-color:var(--teal);
-    flex:none;
-    cursor:pointer;
-  }
-  .task span{
-    font-size:14px;
-    color:var(--text);
-  }
-  .task.checked span{
-    color:var(--text-3);
-    text-decoration:line-through;
-  }
-  .note{
-    margin-top:14px;
-    font-size:12.5px;
-    color:var(--text-3);
-    border-right:2px solid var(--line);
-    padding-right:10px;
-  }
-
-  @media (max-width:680px){
-    .hero-main-content{
-      flex-direction: column-reverse;
-      text-align: center;
-    }
-    .hero-text{text-align: center;}
-    .rail-container::before{right:27px;}
-    .station-marker{width:40px;height:40px;font-size:14px;}
-    .station{gap:12px;}
-    .hero h1{font-size:26px;}
-  }
+:root{
+ --bg:#0b1020; --card:#121a2c; --card2:#182238; --line:#2a3650;
+ --text:#f4f7fb; --muted:#9eabc0; --cyan:#35d6c7; --blue:#5aa7ff;
+ --gold:#ffca5c; --pink:#ff7895; --green:#65e28d;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 10% 0%,#17294c 0,#0b1020 35%);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.75}
+.wrap{max-width:1050px;margin:auto;padding:28px 18px 70px}
+.hero{text-align:center;padding:30px 10px 24px}
+.badge{display:inline-block;color:var(--cyan);border:1px solid #246a68;background:#102c31;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:bold;letter-spacing:.7px}
+h1{font-size:38px;margin:12px 0 4px}
+.hero p{color:var(--muted);margin:0 auto;max-width:780px}
+.goal{margin:20px auto 0;background:linear-gradient(135deg,#132744,#17223a);border:1px solid #2d4365;border-radius:18px;padding:18px;max-width:850px}
+.goal b{color:var(--gold)}
+.timeline{position:relative;margin-top:30px}
+.timeline:before{content:"";position:absolute;right:27px;top:10px;bottom:20px;width:3px;background:linear-gradient(var(--cyan),var(--blue),var(--pink))}
+.stage{position:relative;padding-right:70px;margin:0 0 22px}
+.dot{position:absolute;right:12px;top:16px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#0e1729;border:3px solid var(--cyan);font-weight:bold;color:var(--cyan);z-index:2}
+.card{background:rgba(18,26,44,.96);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.16)}
+.stage h2{margin:0;font-size:23px}
+.sub{color:var(--muted);font-size:14px;margin:2px 0 15px}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:15px}
+.box{background:var(--card2);border:1px solid var(--line);border-radius:13px;padding:14px}
+.box h3{margin:0 0 8px;font-size:15px;color:var(--cyan)}
+ul{margin:7px 0;padding-right:20px}
+li{margin:4px 0}
+a{color:#b9ddff;text-decoration:none}
+a:hover{text-decoration:underline}
+.course{display:block;padding:10px 12px;background:#10192b;border:1px solid #2a3a56;border-radius:10px;margin:7px 0}
+.course small{display:block;color:var(--muted);margin-top:2px}
+.check{color:var(--green)}
+.finish{border-right:3px solid var(--gold);padding-right:11px;margin-top:12px}
+.finish b{color:var(--gold)}
+.rules{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rule{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px}
+.rule b{display:block;color:var(--blue);margin-bottom:4px}
+.footer{text-align:center;color:var(--muted);font-size:13px;margin-top:30px}
+@media(max-width:760px){h1{font-size:29px}.grid,.rules{grid-template-columns:1fr}.stage{padding-right:55px}.timeline:before{right:22px}.dot{right:7px}}
 </style>
 </head>
 <body>
+<div class="wrap">
+<section class="hero">
+  <span class="badge">DATA ANALYST — ARABIC ROADMAP</span>
+  <h1>خريطة طريق تحليل البيانات</h1>
+  <p>امشِ من محطة لمحطة. لا تنتقل للمرحلة التالية إلا بعد تحقيق شروط الخروج في نهاية كل محطة.</p>
+  <div class="goal"><b>الهدف النهائي:</b> تكون قادرًا على أخذ Dataset حقيقية، تنظيفها، استخراج Insights بـ SQL/Python، بناء Dashboard احترافي بـ Power BI، ثم عرض المشروع كـ Portfolio.</div>
+</section>
 
-<div class="hero">
-  <div class="hero-main-content">
-    <div class="hero-text">
-      <div class="eyebrow">DATA ANALYST TRACK</div>
-      <h1>خُطَّةُ طَرِيقِ تَحْلِيلِ البَيَانَاتِ - حسين محمد</h1>
-      <p>سبع محطات من الصفر لحد أول وظيفة. اعمل تيك على كل مهمة تخلصها وهيتسجلّك تقدمك تلقائي.</p>
-    </div>
-    <div class="hero-logo">
-      <img src="favicon.png" alt="Pharaoh Logo" class="hero-img">
-    </div>
-  </div>
-  
-  <div class="progress-wrap">
-    <span class="progress-label" id="progressLabel">0 / 0</span>
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <span class="progress-label" id="progressPct">0%</span>
-  </div>
+<div class="timeline">
+
+<div class="stage"><div class="dot">1</div><div class="card">
+<h2>Excel + عقلية محلل البيانات</h2><div class="sub">المدة المقترحة: 3–4 أسابيع</div>
+<div class="grid">
+<div class="box"><h3>اتعلم</h3><ul>
+<li>Tables, Sort/Filter, IF, SUMIFS, COUNTIFS, XLOOKUP/VLOOKUP</li>
+<li>تنظيف البيانات: duplicates, blanks, text/date problems</li>
+<li>Pivot Tables + Pivot Charts + basic dashboards</li>
+<li>أساسيات الإحصاء: mean, median, standard deviation, correlation</li>
+<li>قبل كل تحليل: ما السؤال؟ ما الـ KPI؟ وما القرار الذي ستساعد البيانات فيه؟</li>
+</ul></div>
+<div class="box"><h3>الكورس الأساسي</h3>
+<a class="course" href="https://www.youtube.com/playlist?list=PLXlHqMRg9lAbetpJy3ePXsN0sj9Zs-pvT" target="_blank">كورس تحليل البيانات بالإكسل — اتعلم مع العسال<small>YouTube Playlist</small></a>
+<div class="finish"><b>لا تنتقل قبل أن:</b><br>تعمل تقرير Excel من Dataset حقيقية وتشرح 3 Insights منه.</div>
+</div></div></div></div>
+
+<div class="stage"><div class="dot">2</div><div class="card">
+<h2>SQL + قواعد البيانات</h2><div class="sub">المدة المقترحة: 4–5 أسابيع</div>
+<div class="grid">
+<div class="box"><h3>اتعلم بالترتيب</h3><ul>
+<li>SELECT → WHERE → ORDER BY → DISTINCT</li>
+<li>CASE WHEN + NULL handling</li>
+<li>GROUP BY + HAVING + aggregate functions</li>
+<li>JOIN: INNER / LEFT / RIGHT</li>
+<li>Subqueries + CTEs</li>
+<li>Window Functions: ROW_NUMBER, RANK, SUM/AVG OVER</li>
+<li>حل مسائل SQL باستمرار، وليس مشاهدة الكورس فقط</li>
+</ul></div>
+<div class="box"><h3>الكورس الأساسي</h3>
+<a class="course" href="https://www.youtube.com/playlist?list=PLxbVBWjVdAEj8TmOUKPG0avUmLqSoQOpf" target="_blank">SQL للمبتدئين بالعربي — Korsat X Parmaga<small>YouTube Playlist</small></a>
+<div class="finish"><b>لا تنتقل قبل أن:</b><br>تحل 30–50 سؤال SQL وتقدر تعمل JOIN + GROUP BY + Window Function بدون نسخ الحل.</div>
+</div></div></div></div>
+
+<div class="stage"><div class="dot">3</div><div class="card">
+<h2>Python للـ Data Analysis</h2><div class="sub">المدة المقترحة: 5–7 أسابيع</div>
+<div class="grid">
+<div class="box"><h3>اتعلم</h3><ul>
+<li>Python basics: variables, lists, dictionaries, loops, functions</li>
+<li>NumPy basics</li>
+<li>Pandas: read_csv, info, describe, loc/iloc, groupby, merge</li>
+<li>Cleaning: missing values, duplicates, types, strings, dates</li>
+<li>Visualization: Matplotlib / Seaborn / Plotly basics</li>
+</ul></div>
+<div class="box"><h3>مصادر عربية</h3>
+<a class="course" href="https://www.youtube.com/watch?v=jg0aQ9ftNUs" target="_blank">كورس تحليل البيانات باستخدام Python — نورهان زيد<small>يتضمن Pandas, Seaborn, Matplotlib, Plotly, NumPy ومشاريع عملية</small></a>
+<a class="course" href="https://www.youtube.com/watch?v=O5aX_JiVQeI" target="_blank">شرح كامل لبايثون لتحليل البيانات — Alvanguard<small>شرح مختصر ومفيد كبداية تطبيقية</small></a>
+<div class="finish"><b>لا تنتقل قبل أن:</b><br>تفتح CSV، تنظفه بـ Pandas، تعمل 5 تحليلات و5 رسومات وتشرح النتائج.</div>
+</div></div></div></div>
+
+<div class="stage"><div class="dot">4</div><div class="card">
+<h2>EDA — Exploratory Data Analysis</h2><div class="sub">تُطبَّق مع Python، وليست مرحلة مشاهدة كورس فقط</div>
+<div class="grid">
+<div class="box"><h3>طريقة التفكير</h3><ul>
+<li>افهم business question قبل لمس البيانات</li>
+<li>اعرف شكل البيانات والـ data types</li>
+<li>Missing values + duplicates + outliers</li>
+<li>Univariate / bivariate analysis</li>
+<li>Correlation بدون افتراض أن الارتباط يعني السببية</li>
+<li>اكتب Insights بصيغة: ماذا حدث؟ لماذا قد يكون حدث؟ وما القرار المقترح؟</li>
+</ul></div>
+<div class="box"><h3>مخرج المرحلة</h3><ul>
+<li class="check">Notebook مرتب</li>
+<li class="check">Data cleaning واضح</li>
+<li class="check">EDA charts</li>
+<li class="check">صفحة Conclusions</li>
+</ul>
+<div class="finish"><b>اختبارك:</b><br>أعطِ نفسك Dataset لم ترها من قبل وحللها من الصفر خلال جلسة عمل كاملة.</div>
+</div></div></div></div>
+
+<div class="stage"><div class="dot">5</div><div class="card">
+<h2>Power BI — Visualization + BI</h2><div class="sub">المدة المقترحة: 4–6 أسابيع</div>
+<div class="grid">
+<div class="box"><h3>اتعلم بالترتيب</h3><ul>
+<li>Import + Power Query</li>
+<li>Data cleaning & transformation</li>
+<li>Data model + relationships</li>
+<li>Measures vs calculated columns</li>
+<li>DAX basics ثم DAX عملي</li>
+<li>KPIs, slicers, drill-through, tooltips</li>
+<li>Dashboard design: hierarchy, whitespace, useful visuals فقط</li>
+</ul></div>
+<div class="box"><h3>الكورس الأساسي</h3>
+<a class="course" href="https://www.youtube.com/playlist?list=PLXlHqMRg9lAZPJ5loaPck60I91kAwMhT3" target="_blank">كورس Power BI — اتعلم مع العسال<small>YouTube Playlist</small></a>
+<a class="course" href="https://www.youtube.com/watch?v=4r-S2nyT454" target="_blank">تعلم Power BI من الصفر — أكاديمية العسال<small>فيديو/مدخل حديث للكورس</small></a>
+<div class="finish"><b>لا تنتقل قبل أن:</b><br>تبني Dashboard من Dataset خام وتوصل من Power Query إلى Data Model ثم DAX ثم التقرير النهائي.</div>
+</div></div></div></div>
+
+<div class="stage"><div class="dot">6</div><div class="card">
+<h2>Portfolio Projects — أهم محطة</h2><div class="sub">المدة المقترحة: 4–6 أسابيع، وتستمر بعدها</div>
+<div class="grid">
+<div class="box"><h3>اعمل 3 مشاريع</h3><ul>
+<li><b>Project 1 — Sales:</b> Excel + Power BI</li>
+<li><b>Project 2 — E-commerce:</b> SQL + Power BI</li>
+<li><b>Project 3 — Customer/HR:</b> Python + EDA + Power BI</li>
+</ul></div>
+<div class="box"><h3>كل مشروع لازم يحتوي</h3><ul>
+<li>Business question</li><li>Raw data → cleaning</li><li>Analysis</li><li>Dashboard</li><li>5–10 Insights</li><li>Recommendations</li><li>README مرتب + screenshots</li>
+</ul></div></div>
+<div class="finish"><b>شرط النجاح:</b> شخص آخر يفتح مشروعك ويفهم المشكلة، ماذا اكتشفت، وما القرار المقترح بدون أن تشرح له كل خطوة شفهيًا.</div>
+</div></div>
+
+<div class="stage"><div class="dot">7</div><div class="card">
+<h2>Job Ready — CV + LinkedIn + Interviews</h2><div class="sub">ابدأ التحضير من قبل انتهاء المشاريع</div>
+<div class="grid">
+<div class="box"><h3>جهز</h3><ul>
+<li>CV صفحة واحدة يركز على النتائج والمشاريع</li>
+<li>LinkedIn مرتب + عنوان واضح</li>
+<li>GitHub فيه المشاريع وREADME</li>
+<li>شرح كل مشروع في 60–90 ثانية</li>
+<li>تدريب SQL + Excel + Power BI interview questions</li>
+</ul></div>
+<div class="box"><h3>روتين التقديم</h3><ul>
+<li>راجع إعلان الوظيفة قبل التقديم</li>
+<li>خصص CV للمسمى المطلوب</li>
+<li>تابع الشركات والفرص بانتظام</li>
+<li>سجل أخطاء كل Interview وحسّنها</li>
+</ul></div></div>
+<div class="finish"><b>أنت Job Ready عندما:</b> تقدر تنفذ تحليل كامل من سؤال Business إلى Dashboard وتدافع عن اختياراتك في Interview.</div>
+</div></div>
+
 </div>
 
-<div class="rail-container" id="rail"></div>
+<section class="rules">
+<div class="rule"><b>قاعدة 70/30</b>30% تعلم + 70% تطبيق. لا تجمع كورسات وتؤجل المشاريع.</div>
+<div class="rule"><b>كل أسبوع</b>مهمة صغيرة قابلة للعرض: Dashboard أو SQL case أو Notebook.</div>
+<div class="rule"><b>الإنجليزي</b>ابدأ عربي، لكن احفظ المصطلحات الإنجليزية لأنها لغة الشغل والـdocumentation.</div>
+</section>
 
-<script>
-const STAGES = [
-  {
-    id:'s1', title:'الأساسيات: إكسل والإحصاء', sub:'افهم شكل البيانات قبل أي حاجة تانية',
-    courses:[
-      {title:'كورس تحليل البيانات بالإكسل', channel:'قناة اتعلم مع العسال', url:'https://www.youtube.com/playlist?list=PLXlHqMRg9lAbetpJy3ePXsN0sj9Zs-pvT'}
-    ],
-    tasks:[
-      'اتعلم Pivot Tables والدوال الأساسية في إكسل',
-      'افهم المتوسط والوسيط والانحراف المعياري',
-      'اعمل أول تقرير بسيط في إكسل من بيانات حقيقية'
-    ]
-  },
-  {
-    id:'s2', title:'SQL وقواعد البيانات', sub:'أهم مهارة هتفتحلك باب الشغل',
-    courses:[
-      {title:'دورة SQL كاملة للمبتدئين بالعربي', channel:'Korsat X Parmaga', url:'https://www.youtube.com/playlist?list=PLxbVBWjVdAEj8TmOUKPG0avUmLqSoQOpf'}
-    ],
-    tasks:[
-      'اتعلم SELECT وWHERE وORDER BY',
-      'اتعلم أنواع JOIN المختلفة',
-      'اتعلم GROUP BY وWindow Functions',
-      'حل تمارين على HackerRank SQL'
-    ]
-  },
-  {
-    id:'s3', title:'Python للتحليل', sub:'Pandas وNumPy هما سلاحك الأساسي',
-    courses:[
-      {title:'كورس تحليل البيانات من الصفر - جزء بايثون', channel:'يوتيوب عربي', url:'https://www.youtube.com/playlist?list=PLonOrMR73lKiRTVZ65tKXwczwi09qzlUt'},
-      {title:'محتوى بايثون لتحليل البيانات', channel:'Stat Academy', url:'https://statacademy-eg.com'}
-    ],
-    tasks:[
-      'اتعلم أساسيات بايثون: المتغيرات والحلقات والدوال',
-      'اتعلم مكتبة Pandas: قراءة البيانات وتنظيفها',
-      'ارسم بمكتبة Matplotlib أو Seaborn'
-    ]
-  },
-  {
-    id:'s4', title:'تنظيف وتحليل البيانات (EDA)', sub:'دوّر على القصة اللي البيانات بتحكيها',
-    courses:[],
-    tasks:[
-      'تعامل مع القيم الناقصة (missing values)',
-      'اكتشف القيم الشاذة (outliers)',
-      'حلل العلاقة بين المتغيرات (correlation)',
-      'اطلع بخلاصة واضحة من كل تحليل تعمله'
-    ]
-  },
-  {
-    id:'s5', title:'أدوات التصور المرئي: Power BI', sub:'حوّل الأرقام لصورة تتفهم في ثانية',
-    courses:[
-      {title:'كورس Power BI من الصفر', channel:'قناة اتعلم مع العسال', url:'https://www.youtube.com/playlist?list=PLXlHqMRg9lAZPJ5loaPck60I91kAwMhT3'}
-    ],
-    tasks:[
-      'اتعلم تجهيز البيانات بـ Power Query',
-      'اتعلم أساسيات لغة DAX',
-      'ابني أول Dashboard تفاعلي كامل'
-    ]
-  },
-  {
-    id:'s6', title:'مشاريع بورتفوليو حقيقية', sub:'من غير مشاريع مفيش حد هيوظفك', outcome:true,
-    courses:[],
-    tasks:[
-      'اختار 3 داتا سيتس مختلفة من Kaggle',
-      'اعمل تحليل كامل: تنظيف + EDA + داشبورد لكل مشروع',
-      'ارفع المشاريع على GitHub',
-      'اكتب بوست على LinkedIn يشرح كل مشروع'
-    ]
-  },
-  {
-    id:'s7', title:'البحث عن وظيفة', sub:'وقت إنك تطلع للسوق', outcome:true,
-    courses:[],
-    tasks:[
-      'جهز سيرة ذاتية تركز على المشاريع مش بس المهارات',
-      'ابني بروفايل LinkedIn قوي',
-      'قدم يوميًا على Wuzzuf وLinkedIn',
-      'جهز نفسك لأسئلة الإنترفيو التقنية الشائعة'
-    ]
-  }
-];
-
-let progress = {};
-
-function loadProgress(){
-  try{
-    const savedData = localStorage.getItem('roadmap-progress');
-    progress = savedData ? JSON.parse(savedData) : {};
-  }catch(e){ 
-    progress = {}; 
-  }
-  render();
-}
-
-function saveProgress(){
-  try{ 
-    localStorage.setItem('roadmap-progress', JSON.stringify(progress)); 
-  }catch(e){ 
-    console.error('save failed', e); 
-  }
-}
-
-function toggleTask(taskId){
-  progress[taskId] = !progress[taskId];
-  saveProgress();
-  render();
-}
-
-function render(){
-  const rail = document.getElementById('rail');
-  rail.innerHTML = '';
-  let totalTasks = 0, doneTasks = 0;
-
-  STAGES.forEach((stage, idx) => {
-    const stageTaskIds = stage.tasks.map((_, i) => stage.id + '-' + i);
-    const stageDone = stageTaskIds.filter(id => progress[id]).length;
-    totalTasks += stageTaskIds.length;
-    doneTasks += stageDone;
-    const pct = stageTaskIds.length ? Math.round(stageDone / stageTaskIds.length * 100) : 0;
-
-    const station = document.createElement('div');
-    station.className = 'station';
-
-    const marker = document.createElement('div');
-    marker.className = 'station-marker' + (pct === 100 ? ' done' : pct > 0 ? ' progress' : '');
-    marker.textContent = pct === 100 ? '✓' : (idx + 1);
-    station.appendChild(marker);
-
-    const card = document.createElement('div');
-    card.className = 'station-card' + (stage.outcome ? ' outcome' : '');
-
-    const top = document.createElement('div');
-    top.className = 'station-top';
-    top.innerHTML = `
-      <div>
-        <div class="station-title">${stage.title}</div>
-        <p class="station-sub">${stage.sub}</p>
-      </div>
-      <span class="station-pct mono">${stageDone}/${stageTaskIds.length}</span>
-    `;
-    card.appendChild(top);
-
-    if(stage.courses.length){
-      const coursesEl = document.createElement('div');
-      coursesEl.className = 'courses';
-      stage.courses.forEach(c => {
-        const a = document.createElement('a');
-        a.href = c.url; a.target = '_blank'; a.rel = 'noopener';
-        a.className = 'course-link';
-        a.innerHTML = `<span class="yt">YT</span><span>${c.title}<br><span class="course-meta">${c.channel}</span></span>`;
-        coursesEl.appendChild(a);
-      });
-      card.appendChild(coursesEl);
-    }
-
-    const tasksEl = document.createElement('div');
-    tasksEl.className = 'tasks';
-    stage.tasks.forEach((label, i) => {
-      const taskId = stage.id + '-' + i;
-      const checked = !!progress[taskId];
-      const row = document.createElement('label');
-      row.className = 'task' + (checked ? ' checked' : '');
-      row.innerHTML = `<input type="checkbox" ${checked ? 'checked' : ''}><span>${label}</span>`;
-      row.querySelector('input').addEventListener('change', () => toggleTask(taskId));
-      tasksEl.appendChild(row);
-    });
-    card.appendChild(tasksEl);
-
-    if(!stage.courses.length && !stage.outcome){
-      const note = document.createElement('div');
-      note.className = 'note';
-      note.textContent = 'المرحلة دي بتتطبق جنب مرحلة بايثون، مفيهاش كورس منفصل.';
-      card.appendChild(note);
-    }
-
-    station.appendChild(card);
-    rail.appendChild(station);
-  });
-
-  document.getElementById('progressLabel').textContent = doneTasks + ' / ' + totalTasks;
-  const overallPct = totalTasks ? Math.round(doneTasks / totalTasks * 100) : 0;
-  document.getElementById('progressPct').textContent = overallPct + '%';
-  document.getElementById('progressFill').style.width = overallPct + '%';
-}
-
-loadProgress();
-</script>
-
+<div class="footer">Roadmap مصممة للمبتدئ العربي — عدّل السرعة حسب وقتك، لكن حافظ على ترتيب المهارات وشروط الانتقال.</div>
+</div>
 </body>
 </html>
