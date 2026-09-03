@@ -38,24 +38,31 @@
   /* ---------- Header ---------- */
   .hero{
     padding:56px 24px 40px;
-    max-width:760px;
+    max-width:850px;
     margin:0 auto;
-    text-align:center;
+  }
+  .hero-main-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .hero-text {
+    flex: 1;
+    text-align: right;
   }
   .hero-logo {
+    flex: none;
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
+    justify-content: center;
   }
   .hero-img {
-    width: 110px;
-    height: 110px;
-    max-width: 100%;
+    width: 130px;
+    height: 130px;
     object-fit: contain;
-    display: block;
-    margin: 0 auto;
+    border-radius: 12px;
     filter: drop-shadow(0 0 15px rgba(51, 214, 168, 0.25));
   }
   .eyebrow{
@@ -66,14 +73,14 @@
     text-transform:uppercase;
   }
   .hero h1{
-    font-size:34px;
+    font-size:32px;
     font-weight:800;
-    margin:10px 0 8px;
+    margin:8px 0;
   }
   .hero p{
     color:var(--text-2);
     font-size:15px;
-    margin:0 0 28px;
+    margin:0;
   }
   .progress-wrap{
     display:flex;
@@ -259,7 +266,12 @@
     padding-right:10px;
   }
 
-  @media (max-width:560px){
+  @media (max-width:680px){
+    .hero-main-content{
+      flex-direction: column-reverse;
+      text-align: center;
+    }
+    .hero-text{text-align: center;}
     .rail-container::before{right:27px;}
     .station-marker{width:40px;height:40px;font-size:14px;}
     .station{gap:12px;}
@@ -270,12 +282,17 @@
 <body>
 
 <div class="hero">
-  <div class="hero-logo">
-    <img src="favicon.png" alt="Pharaoh Logo" class="hero-img">
+  <div class="hero-main-content">
+    <div class="hero-text">
+      <div class="eyebrow">DATA ANALYST TRACK</div>
+      <h1>خُطَّةُ طَرِيقِ تَحْلِيلِ البَيَانَاتِ - التجربة العملية الأولى</h1>
+      <p>سبع محطات من الصفر لحد أول وظيفة. اعمل تيك على كل مهمة تخلصها وهيتسجلّك تقدمك تلقائي.</p>
+    </div>
+    <div class="hero-logo">
+      <img src="favicon.png" alt="Pharaoh Logo" class="hero-img">
+    </div>
   </div>
-  <div class="eyebrow">DATA ANALYST TRACK</div>
-  <h1>خُطَّةُ طَرِيقِ تَحْلِيلِ البَيَانَاتِ - التجربة العملية الأولى</h1>
-  <p>سبع محطات من الصفر لحد أول وظيفة. اعمل تيك على كل مهمة تخلصها وهيتسجلّك تقدمك تلقائي.</p>
+  
   <div class="progress-wrap">
     <span class="progress-label" id="progressLabel">0 / 0</span>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
