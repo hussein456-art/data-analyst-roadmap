@@ -42,6 +42,17 @@
     margin:0 auto;
     text-align:center;
   }
+  .hero-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .hero-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 15px rgba(51, 214, 168, 0.2));
+  }
   .eyebrow{
     font-family:'IBM Plex Mono',monospace;
     font-size:12px;
@@ -254,6 +265,9 @@
 <body>
 
 <div class="hero">
+  <div class="hero-logo">
+    <img src="./favicon.png" alt="Pharaoh Logo" class="hero-img">
+  </div>
   <div class="eyebrow">DATA ANALYST TRACK</div>
   <h1>خُطَّةُ طَرِيقِ تَحْلِيلِ البَيَانَاتِ - التجربة العملية الأولى</h1>
   <p>سبع محطات من الصفر لحد أول وظيفة. اعمل تيك على كل مهمة تخلصها وهيتسجلّك تقدمك تلقائي.</p>
